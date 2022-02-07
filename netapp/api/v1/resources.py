@@ -1,9 +1,5 @@
 from flask import request, Blueprint
 from flask_restful import Resource, Api
-import json
-from requests import get, post, delete
-import ast
-import datetime
 from netapp.error.error_handling import ObjectNotFound
 from netapp.models import Cell, Historic
 from netapp.schemas import CellSchema, HistoricSchema
@@ -48,20 +44,6 @@ def get_location(external_id):
         external_id=external_id
     )
     return location_info
-"""
-def delete_subscription(self, id=None):
-    token = get_token()
-    host = get_host_of_the_nef_emulator()
-    location_subscriber = LocationSubscriber(host, token["access_token"])
-
-    if id is None:
-        all_subscriptions = location_subscriber.get_all_subscriptions(netapp_id, 0, 100)
-        for subscription in all_subscriptions:
-            id = subscription.link.split("/")[-1]
-            location_subscriber.delete_subscription(netapp_id, id)
-    else:
-        location_subscriber.delete_subscription(netapp_id, id)
-"""
 
 class CellManagement(Resource):
     def get(self, num=None):
