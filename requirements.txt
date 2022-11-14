@@ -1,0 +1,11 @@
+flask
+flask_restful
+flask_sqlalchemy
+flask_migrate
+flask_marshmallow
+marshmallow-sqlalchemy
+python-dotenv
+psycopg2-binary
+requests
+evolved5g
+waitress

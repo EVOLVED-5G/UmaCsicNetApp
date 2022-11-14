@@ -1,0 +1,36 @@
+services:
+ db:
+   container_name: postgres_container
+   image: postgres
+   restart: always
+   environment:
+     POSTGRES_USER: netapp
+     POSTGRES_PASSWORD: secret
+     PGDATA: /var/lib/postgresql/data
+     POSTGRES_DB: netappdb
+   expose:
+    - "5433"
+   ports:
+     - "5433:5433"
+   volumes:
+     - db-data:/var/lib/postgresql/data
+   command: -p 5433
+  
+ netapp:
+   build: .
+   container_name: netapp
+   ports:
+    - "10001:10001"
+   links:
+    - db
+   env_file:
+      - .env 
+     
+
+networks:
+  default:
+    name: services_default
+    external: true
+
+volumes:
+ db-data:
