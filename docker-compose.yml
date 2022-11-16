@@ -3,11 +3,9 @@ services:
    container_name: postgres_container
    image: postgres
    restart: always
-   environment:
-     POSTGRES_USER: netapp
-     POSTGRES_PASSWORD: secret
-     PGDATA: /var/lib/postgresql/data
-     POSTGRES_DB: netappdb
+   env_file:
+      - .env 
+     
    expose:
     - "5433"
    ports:

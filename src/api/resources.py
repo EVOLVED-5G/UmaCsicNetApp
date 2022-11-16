@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource, Api
+from os import environ
 
 from src import db
 from src.api.models import Cell, Historic
@@ -8,13 +9,6 @@ from flask import Blueprint
 from src.errors.handling import ObjectNotFound, AppErrorBaseClass
 
 from src.api.schemas import CellSchema, HistoricSchema, CellSchemaVerbose
-
-from os import environ, path
-from dotenv import load_dotenv
-
-
-basedir = path.abspath(path.dirname(__file__))
-load_dotenv(path.join(basedir, '.env'))
 
 from evolved5g.sdk import LocationSubscriber
 from evolved5g import swagger_client
@@ -33,7 +27,7 @@ netapp_id = "myNetapp"
 
 
 def get_host_of_the_nef_emulator() -> str:
-    return "http://backend:80"
+    return environ.get('NEFHOST')
 
 
 def get_token():
@@ -54,10 +48,10 @@ def get_folder_path_for_certificated_and_capif_api_key():
     return "./certs"
 
 def get_capif_host():
-    return "capifcore"
+    return environ.get('CAPIFHOST')
 
 def get_capif_https_port():
-    return 443
+    return environ.get('CAPIFHTTPS')
 ###################################################
 
 def get_location(external_id):
