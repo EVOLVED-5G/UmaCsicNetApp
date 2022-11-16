@@ -13,7 +13,7 @@ RUN pip install -r requirements.txt
 
 #COPY certs certs
 COPY src src
-COPY boot.sh main.py config.py .
+COPY boot.sh main.py config.py ./
 RUN chmod +x boot.sh
 
 ENTRYPOINT ["./boot.sh"]
