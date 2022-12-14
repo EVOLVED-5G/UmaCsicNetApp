@@ -136,4 +136,4 @@ cython_debug/
 k8/
 
 #certs
-/certs
+#/certs

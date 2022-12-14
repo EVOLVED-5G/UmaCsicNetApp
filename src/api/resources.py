@@ -13,10 +13,11 @@ from src.api.schemas import CellSchema, HistoricSchema, CellSchemaVerbose
 from evolved5g.sdk import LocationSubscriber
 from evolved5g import swagger_client
 from evolved5g.swagger_client import LoginApi
+from dateutil import parser
+from datetime import datetime
 
 
 bp_api = Blueprint('api', __name__, url_prefix='/api')
-
 api = Api(bp_api)
 
 cell_schema = CellSchema()
@@ -25,12 +26,10 @@ cell_schema_verbose = CellSchemaVerbose()
 
 netapp_id = "myNetapp"
 
-
 def get_host_of_the_nef_emulator() -> str:
     return environ.get('NEFHOST')
 
-
-def get_token():
+def request_nef_token():
     username = "admin@my-email.com"
     password = "pass"
     configuration = swagger_client.Configuration()
@@ -42,23 +41,19 @@ def get_token():
     token = api.login_access_token_api_v1_login_access_token_post(
         "", username, password, "", "", "")
     return token
-#######################################################
 
 def get_folder_path_for_certificated_and_capif_api_key():
-    return "./certs"
+    return environ.get('PATH_TO_CERTS')
 
 def get_capif_host():
     return environ.get('CAPIFHOST')
 
 def get_capif_https_port():
     return environ.get('CAPIFHTTPS')
-###################################################
 
-def get_location(external_id):
-    token = get_token()
+def monitor_subscription(external_id):
+    token = request_nef_token()
     host = get_host_of_the_nef_emulator()
-
-    #location_subscriber = LocationSubscriber(host, token.access_token)
 
     location_subscriber = LocationSubscriber(nef_url=host,
                                              nef_bearer_access_token=token.access_token,
@@ -70,7 +65,6 @@ def get_location(external_id):
         netapp_id=netapp_id,
         external_id=external_id
     )
-
     return location_info
 
 
@@ -126,7 +120,7 @@ class HistoricManagement(Resource):
 
         if external_id is not None:
             try:
-                location_info = get_location(external_id)
+                location_info = monitor_subscription(external_id)
             except:
                 raise ObjectNotFound(
                     'The UE with external_id ' + external_id + ' is not found')
@@ -153,7 +147,7 @@ class HistoricManagement(Resource):
         historic_data = request.get_json()
 
         try:
-            location_info = get_location(external_id)
+            location_info = monitor_subscription(external_id)
         except:
             raise ObjectNotFound('The UE with external_id ' + external_id + ' is not found')
         cell_num = location_info._location_info.cell_id
@@ -161,11 +155,16 @@ class HistoricManagement(Resource):
         cell = Cell.query.filter_by(cell_num=cell_num).first()
         if cell is None:
             raise ObjectNotFound('Cell '+ cell_num + ' not found in database')
-        
-        historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
-                    HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
-                    HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"],
-                    cell = cell)
+        if "timestamp" in historic_data:
+            datetime_data = datetime.strptime(historic_data["timestamp"], '%Y-%m-%d %H:%M:%S')
+            historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
+                        HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
+                        HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"], cell = cell, timestamp=datetime_data)
+        else:
+            historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
+                        HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
+                        HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"],
+                        cell = cell) 
         db.session.add(historic)
         db.session.commit()
     
