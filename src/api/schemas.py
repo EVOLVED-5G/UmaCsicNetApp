@@ -13,7 +13,7 @@ class CellSchemaVerbose(ma.Schema):
 
 class HistoricSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
-    timestamp = fields.DateTime()
+    datetime = fields.DateTime()
     HS10_0 = fields.Float()
     HS10_1 = fields.Float()
     HS10_2 = fields.Float()

@@ -10,7 +10,7 @@ class Cell(db.Model):
 class Historic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cell_id = db.Column(db.Integer, db.ForeignKey('cell.id'))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    datetime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     HS10_0 = db.Column(db.Float)
     HS10_1 = db.Column(db.Float)
     HS10_2 = db.Column(db.Float)

@@ -75,7 +75,7 @@ class CellManagement(Resource):
             cell = Cell.query.filter_by(cell_num=num).first()
             if cell is None:
                 raise ObjectNotFound('Cell ' + num + ' not found in database')
-            if verbose is not None and verbose == "Yes":
+            if verbose is not None and verbose.lower() == "yes":
                 result = cell_schema_verbose.dump(cell)
             else:
                 result = cell_schema.dump(cell)
@@ -159,7 +159,7 @@ class HistoricManagement(Resource):
             datetime_data = datetime.strptime(historic_data["timestamp"], '%Y-%m-%d %H:%M:%S')
             historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
                         HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
-                        HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"], cell = cell, timestamp=datetime_data)
+                        HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"], cell = cell, datetime=datetime_data)
         else:
             historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
                         HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],

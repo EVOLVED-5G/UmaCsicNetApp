@@ -23,8 +23,8 @@ def create_app(config=Config):
     from src.api.resources import bp_api
     app.register_blueprint(bp_api)
 
-    #from src.errors import bp as bp_errors
-    #app.register_blueprint(bp_errors)
+    from src.errors import bp as bp_errors
+    app.register_blueprint(bp_errors)
 
     return app
 

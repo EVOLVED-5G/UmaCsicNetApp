@@ -132,8 +132,5 @@ cython_debug/
 #vscode
 .vscode
 
-# k8
-k8/
-
 #certs
 #/certs
