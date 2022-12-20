@@ -113,6 +113,6 @@ Deletes the historic which has the historic_id given in the endpoint
 
 #### Get 
 
-http://localhost:8000/api/database/utils/clear
+http://localhost:10001/api/database/utils/clear
 
 Clear the database of the netApp
