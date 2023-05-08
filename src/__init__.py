@@ -29,8 +29,8 @@ def create_app(config=Config):
     #from src.errors import bp as bp_errors
     #app.register_blueprint(bp_errors)
 
-    from src.thread import check_data
-    check_data.process(app)
+    # from src.thread import check_data
+    # check_data.process(app)
 
     return app
 
