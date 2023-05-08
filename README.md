@@ -20,6 +20,55 @@ After the container is up and running:
 
 <br><br>
 
+## Create cell and historics
+
+### By python file
+
+Create an environment 
+
+`python -m venv venv`
+
+Activate environment
+
+`.\venv\Scripts\activate`
+
+`pip install requests`
+
+```python
+# datalogger.py
+import json
+from requests import post, get, delete
+from datetime import datetime
+
+response = post("http://localhost:10001/api/cells",data={'cell_num' : 'AAAAA1001'})
+
+print(response.content)
+
+# json structure based on the historic model
+
+# timestamp not required
+
+message = {
+    "HS10_0" : "123456789",
+    "HS10_1" : "1234567890",
+    "HS10_2" : "12345678901",
+    "HS30_0" : "123456789012",
+    "HS30_1" : "1234567890123",
+    "HS30_2" : "12345678901234",
+    "HS50_0" : "123456789012345",
+    "HS50_1" : "1234567890123456",
+    "HS50_2" : "12345678901234567",
+    "FullBR" : "123456789012345678",
+    "AirTC"  : "1234567890123456789",
+    "RH"     : "12345678901234567890"
+}
+
+response = post("http://localhost:10001/api/historics/",json=message) 
+
+print(response.content)
+```
+
+`python datalogger.py`
 
 ## Endpoints
 
@@ -85,7 +134,7 @@ From parameter is used to requests historics from the given index to the last.
 
 http://localhost:10001/api/historics/publish/{external-id}
 
-- data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, timestamp
+- data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, FullBR, AirTC, RH, timestamp
 
 Creates a new historic and attaches it to the cell where is placed the UE (with that external-id)
 
@@ -93,7 +142,7 @@ Creates a new historic and attaches it to the cell where is placed the UE (with 
 
 http://localhost:10001/api/historics/{historic-id}
 
-- data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2
+- data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, FullBR, AirTC, RH
 
 Updates the historic that has the historic_id given in the endpoint
 

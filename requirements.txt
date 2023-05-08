@@ -4,8 +4,9 @@ flask_sqlalchemy
 flask_migrate
 flask_marshmallow
 marshmallow-sqlalchemy
+flask_mail
 python-dotenv
 psycopg2-binary
 requests
-evolved5g
+evolved5g==1.0.4
 waitress
