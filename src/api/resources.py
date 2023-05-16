@@ -81,6 +81,9 @@ def raise_external_id(external_id):
 # Cell Management API Class
 class CellManagement(Resource):
     def get(self, num=None):
+        """
+        Retrieve a cell name and id. Verbose option sends a more detailed description about the cell
+        """
         verbose = request.args.get("verbose")
         if num is not None:
             cell = Cell.query.filter_by(cell_num=num).first()
@@ -99,12 +102,18 @@ class CellManagement(Resource):
         return result
 
     def post(self):
+        """
+        Add a cell number
+        """
         cell_data = request.form
         cell = Cell(cell_num=cell_data['cell_num'])
         db.session.add(cell)
         db.session.commit()
 
     def put(self, num):
+        """
+        Modify cell number
+        """
         cell_data = request.get_json()
         cell = Cell.query.filter_by(cell_num=num).first()
         if cell is None:
@@ -115,6 +124,9 @@ class CellManagement(Resource):
         db.session.commit()
 
     def delete(self, num):
+        """
+        Delete cell with the given cellNumber with its historics
+        """
         cell = Cell.query.filter_by(cell_num=num).first()
         if cell is None:
             raise_cell_database(num)
@@ -127,6 +139,9 @@ class CellManagement(Resource):
 # Historic Management API Class
 class HistoricManagement(Resource):
     def get(self, external_id=None):
+        """
+        Retrieve all the historics in database. From parameter is used to requests historics from the given index to the last
+        """
         from_index = request.args.get("from")
 
         if external_id is not None:
@@ -152,6 +167,9 @@ class HistoricManagement(Resource):
         return result
 
     def post(self):
+        """
+        Add a new historic and attaches it to the cell where is placed the UE
+        """
         data = str(request.data)
         historic_data = {}
         list_raw = data.split(",")
@@ -191,6 +209,9 @@ class HistoricManagement(Resource):
         db.session.commit()
     
     def put(self, historic_id):
+        """
+        Modify the historic that has the historic_id given in the endpoint
+        """
         historic_data = request.form
         historic = Historic.query.filter_by(id=historic_id).first()
         if historic is None:
@@ -223,15 +244,20 @@ class HistoricManagement(Resource):
         db.session.commit()
 
     def delete(self, historic_id):
+        """
+        Delete the historic that has the historic_id given in the endpoint
+        """
         historic = Historic.query.filter_by(id=historic_id).first()
         if historic is None:
             raise_historic_database(historic_id)
         db.session.delete(historic)
         db.session.commit()
 
-# Clear Database url
 @bp_api.route('/database/utils/clear')
 def clear_data():
+    """
+    Clear database
+    """
     meta = db.metadata
     for table in reversed(meta.sorted_tables):
         db.session.execute(table.delete())
