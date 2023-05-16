@@ -68,13 +68,14 @@ def monitor_subscription(external_id):
 
     return location_info
 
-def error_cell_database(num):
+# Raise error functions
+def raise_cell_database(num):
     raise ObjectNotFound('Cell ' + num + ' not found in database')
 
-def error_historic_database(historic_id):
+def raise_historic_database(historic_id):
     raise ObjectNotFound('Historic ' + historic_id + ' not found in database')
 
-def error_external_id(external_id):
+def raise_external_id(external_id):
     raise ObjectNotFound('The UE with external_id ' + external_id + ' is not found')
 
 # Cell Management API Class
@@ -84,7 +85,7 @@ class CellManagement(Resource):
         if num is not None:
             cell = Cell.query.filter_by(cell_num=num).first()
             if cell is None:
-                error_cell_database(num)
+                raise_cell_database(num)
             if verbose is not None and verbose == "Yes":
                 result = cell_schema_verbose.dump(cell)
             else:
@@ -107,7 +108,7 @@ class CellManagement(Resource):
         cell_data = request.get_json()
         cell = Cell.query.filter_by(cell_num=num).first()
         if cell is None:
-            error_cell_database(num)
+            raise_cell_database(num)
         for key in cell_data:
             if key == "cell_num":
                 cell.cell_num = cell_data[key]
@@ -116,7 +117,7 @@ class CellManagement(Resource):
     def delete(self, num):
         cell = Cell.query.filter_by(cell_num=num).first()
         if cell is None:
-            error_cell_database(num)
+            raise_cell_database(num)
         historics = cell.historics.all()
         for h in historics:
             db.session.delete(h)
@@ -132,11 +133,11 @@ class HistoricManagement(Resource):
             try:
                 location_info = monitor_subscription(external_id)
             except Exception:
-                error_external_id(external_id)
+                raise_external_id(external_id)
             cell_num = location_info._location_info.cell_id
             cell = Cell.query.filter_by(cell_num=cell_num).first()
             if cell is None:
-                error_cell_database(cell_num)
+                raise_cell_database(cell_num)
             historics = cell.historics.order_by(Historic.timestamp.asc()).all()
         else:
             if from_index is not None:
@@ -167,12 +168,12 @@ class HistoricManagement(Resource):
         try:
             location_info = monitor_subscription(external_id)
         except Exception:
-            error_external_id(external_id)
+            raise_external_id(external_id)
         cell_num = location_info._location_info.cell_id
 
         cell = Cell.query.filter_by(cell_num=cell_num).first()
         if cell is None:
-            error_cell_database(cell_num)
+            raise_cell_database(cell_num)
         if "timestamp" in historic_data:
             datetime_data = datetime.strptime(historic_data["timestamp"], '%Y-%m-%d %H:%M:%S')
             historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
@@ -193,7 +194,7 @@ class HistoricManagement(Resource):
         historic_data = request.form
         historic = Historic.query.filter_by(id=historic_id).first()
         if historic is None:
-            error_historic_database(historic_id)
+            raise_historic_database(historic_id)
         for key in historic_data:
             if key == "HS10_0":
                 historic.HS10_0= historic_data[key]
@@ -224,7 +225,7 @@ class HistoricManagement(Resource):
     def delete(self, historic_id):
         historic = Historic.query.filter_by(id=historic_id).first()
         if historic is None:
-            error_historic_database(historic_id)
+            raise_historic_database(historic_id)
         db.session.delete(historic)
         db.session.commit()
 
