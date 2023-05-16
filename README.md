@@ -104,20 +104,15 @@ http://localhost:10001/api/historics
 
 http://localhost:10001/api/historics/{external-id}  
 
-Sends the historics attached to the cell where is placed the UE with that external_id. If not external_id
-is defined, sends all the historics in database
-
 http://localhost:10001/api/historics?from={index}
 
 From parameter is used to requests historics from the given index to the last.
 
 #### Post 
 
-http://localhost:10001/api/historics/publish/{external-id}
+http://localhost:10001/api/historics/
 
 - data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, FullBR, AirTC, RH, timestamp
-
-Creates a new historic and attaches it to the cell where is placed the UE (with that external-id)
 
 #### Put 
 
