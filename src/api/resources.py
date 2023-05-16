@@ -130,7 +130,7 @@ class HistoricManagement(Resource):
         if external_id is not None:
             try:
                 location_info = monitor_subscription(external_id)
-            except:
+            except Exception:
                 error_external_id(external_id)
             cell_num = location_info._location_info.cell_id
             cell = Cell.query.filter_by(cell_num=cell_num).first()
@@ -165,7 +165,7 @@ class HistoricManagement(Resource):
         external_id = "10001@domain.com"
         try:
             location_info = monitor_subscription(external_id)
-        except:
+        except Exception:
             error_external_id(external_id)
         cell_num = location_info._location_info.cell_id
 
