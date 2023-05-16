@@ -5,7 +5,7 @@ from flask import jsonify
 class AppErrorBaseClass(Exception):
     pass
 
-# Object not found errror
+# Object not found error
 class ObjectNotFound(AppErrorBaseClass):
     pass
 
