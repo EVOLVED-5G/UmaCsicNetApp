@@ -28,7 +28,32 @@ Login in NEF and import scenary
 
 `docker compose up`
 
-## Create cell and historics
+## Create cell
+
+### By python file
+
+Create an environment 
+
+`python -m venv venv`
+
+Activate environment
+
+`.\venv\Scripts\activate`
+
+`pip install requests`
+
+```python
+# datalogger.py
+import json
+from requests import post, get, delete
+from datetime import datetime
+
+response = post("http://localhost:10001/api/cells",data={'cell_num' : '...'})
+
+print(response.content)
+```
+
+`python datalogger.py`
 
 ## Endpoints
 
