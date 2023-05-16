@@ -6,11 +6,13 @@ from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_mail import Mail
 
+# Init database
 db = SQLAlchemy()
 migrate = Migrate()
 ma = Marshmallow()
 mail = Mail()
 
+# Create function init
 def create_app(config=Config):
     app = Flask(__name__)
     app.config.from_object(config)
