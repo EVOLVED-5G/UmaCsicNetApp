@@ -1,12 +1,13 @@
 from datetime import datetime
 from src import db
 
-
+# Cell table in database
 class Cell(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cell_num = db.Column(db.String(120), index=True, unique=True)
     historics = db.relationship('Historic', backref='cell', lazy='dynamic')
 
+# Historic table in database
 class Historic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cell_id = db.Column(db.Integer, db.ForeignKey('cell.id'))

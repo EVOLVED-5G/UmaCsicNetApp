@@ -77,6 +77,7 @@ def error_historic_database(historic_id):
 def error_external_id(external_id):
     raise ObjectNotFound('The UE with external_id ' + external_id + ' is not found')
 
+# Cell Management API Class
 class CellManagement(Resource):
     def get(self, num=None):
         verbose = request.args.get("verbose")
@@ -122,7 +123,7 @@ class CellManagement(Resource):
         db.session.delete(cell)
         db.session.commit()
 
-
+# Historic Management API Class
 class HistoricManagement(Resource):
     def get(self, external_id=None):
         from_index = request.args.get("from")
@@ -227,6 +228,7 @@ class HistoricManagement(Resource):
         db.session.delete(historic)
         db.session.commit()
 
+# Clear Database url
 @bp_api.route('/database/utils/clear')
 def clear_data():
     meta = db.metadata
@@ -235,5 +237,6 @@ def clear_data():
     db.session.commit()
     return jsonify({"status":"success"})
 
+# Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')

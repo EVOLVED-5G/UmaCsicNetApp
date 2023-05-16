@@ -1,16 +1,18 @@
 from marshmallow import fields
 from src import ma
 
-
+# Serialization of a cell
 class CellSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     cell_num = fields.String()
 
+# Serialization of a cell with detail
 class CellSchemaVerbose(ma.Schema):
     id = fields.Integer(dump_only=True)
     cell_num = fields.String()
     historics = fields.Nested('HistoricSchema', many=True)
 
+# Serialization of a historic
 class HistoricSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     timestamp = fields.DateTime()

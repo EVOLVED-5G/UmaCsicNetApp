@@ -1,12 +1,15 @@
 from src.errors import bp
 from flask import jsonify
 
+# Base standard error
 class AppErrorBaseClass(Exception):
     pass
 
+# Object not found errror
 class ObjectNotFound(AppErrorBaseClass):
     pass
 
+# Error handlers
 @bp.app_errorhandler(Exception)
 def handle_exception_error(e):
     return jsonify({'msg': 'Internal server error'}), 500
