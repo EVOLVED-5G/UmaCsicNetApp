@@ -110,7 +110,7 @@ From parameter is used to requests historics from the given index to the last.
 
 #### Post 
 
-http://localhost:10001/api/historics/
+http://localhost:10001/api/historics
 
 - data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, FullBR, AirTC, RH, timestamp
 
