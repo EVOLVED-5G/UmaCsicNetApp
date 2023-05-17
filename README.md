@@ -152,4 +152,6 @@ Create a post type request using Postman
 }
 ```
 
+If no environment is set, it will use by default athenas kubernetes
+
 Check the state of the request
