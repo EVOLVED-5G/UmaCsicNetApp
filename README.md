@@ -72,7 +72,7 @@ http://localhost:10001/api/cells?verbose=yes
 
 http://localhost:10001/api/cells/{cell-number}?verbose=yes
 
-verbose option sends a more detailed description about the cell
+Verbose option sends a more detailed description about the cell
 
 #### Post 
 
@@ -98,11 +98,11 @@ Deletes the cell with the given cellNumber with its historics
 
 ### Historic Management 
 
+These endpoints provide access to the data stored in the netapp. They can be used by any Vertical App
+
 #### Get 
 
 http://localhost:10001/api/historics
-
-http://localhost:10001/api/historics/{external-id}  
 
 http://localhost:10001/api/historics?from={index}
 
