@@ -147,7 +147,7 @@ Create a post type request using Postman
         "GIT_NETAPP_URL": "https://github.com/EVOLVED-5G/UmaCsicNetApp",
         "GIT_NETAPP_BRANCH": "evolved5g",
         "VERSION_NETAPP": "1.0.4",
-        "ENVIRONMENT": "kubernetes-uma"
+        "ENVIRONMENT": "..."
     }
 }
 ```
