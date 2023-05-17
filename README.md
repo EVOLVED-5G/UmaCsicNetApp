@@ -65,8 +65,7 @@ http://localhost:10001/api/cells
 
 http://localhost:10001/api/cells/{cell-number}
 
-Sends all the cells data stored in the database by default or data of a specified cell if 
-there is a cellNumber in the endpoint
+Sends all the cells data stored in the database by default or data of a specified cell if there is a cellNumber in the endpoint
 
 http://localhost:10001/api/cells?verbose=yes
 
