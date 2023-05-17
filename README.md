@@ -18,7 +18,7 @@ Then continue with NEF installation
 
 `make up`
 
-Login in NEF and import scenary
+Login to the admin dashboard NEF and import scenary
 
 # [Smart Irrigation netApp](https://github.com/EVOLVED-5G/UmaCsicNetApp)
 
@@ -137,3 +137,19 @@ http://localhost:10001/api/database/utils/clear
 Clear the database of the netApp
 
 # Validate netApp
+
+Create a post type request using Postman
+
+```json
+{
+    "action": "validation",
+    "parameters": {
+        "GIT_NETAPP_URL": "https://github.com/EVOLVED-5G/UmaCsicNetApp",
+        "GIT_NETAPP_BRANCH": "evolved5g",
+        "VERSION_NETAPP": "1.0.4",
+        "ENVIRONMENT": "kubernetes-uma"
+    }
+}
+```
+
+Check the state of the request
