@@ -11,8 +11,6 @@ from src.errors.handling import ObjectNotFound, AppErrorBaseClass
 from src.api.schemas import CellSchema, HistoricSchema, CellSchemaVerbose
 
 from evolved5g.sdk import LocationSubscriber
-from evolved5g import swagger_client
-from evolved5g.swagger_client import LoginApi
 from datetime import datetime
 
 bp_api = Blueprint('api', __name__, url_prefix='/api')
@@ -27,20 +25,6 @@ netapp_id = environ.get('NETAPPID')
 def get_host_of_the_nef_emulator() -> str:
     return environ.get('NEFHOST')
 
-def request_nef_token():
-    username = environ.get('NEFUSER')
-    password = environ.get('NEFPASS')
-    configuration = swagger_client.Configuration()
-    configuration.host = get_host_of_the_nef_emulator()
-    configuration.verify_ssl = False
-    api_client = swagger_client.ApiClient(configuration=configuration)
-    api_client.select_header_content_type(
-        ["application/x-www-form-urlencoded"])
-    api = LoginApi(api_client)
-    token = api.login_access_token_api_v1_login_access_token_post(
-        "", username, password, "", "", "")
-    return token
-
 def get_folder_path_for_certificated_and_capif_api_key():
     return environ.get('PATH_TO_CERTS')
 
@@ -51,7 +35,6 @@ def get_capif_https_port():
     return environ.get('CAPIFHTTPS')
 
 def monitor_subscription(external_id):
-    token = request_nef_token()
     host = get_host_of_the_nef_emulator()
 
     location_subscriber = LocationSubscriber(nef_url=host,
