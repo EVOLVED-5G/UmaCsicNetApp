@@ -55,7 +55,6 @@ def monitor_subscription(external_id):
     host = get_host_of_the_nef_emulator()
 
     location_subscriber = LocationSubscriber(nef_url=host,
-                                             nef_bearer_access_token=token.access_token,
                                              folder_path_for_certificates_and_capif_api_key=get_folder_path_for_certificated_and_capif_api_key(),
                                              capif_host=get_capif_host(),
                                              capif_https_port=get_capif_https_port())
