@@ -9,3 +9,4 @@ spec:
     - protocol: TCP
       port: 10001
       targetPort: 10001
+  type: LoadBalancer
