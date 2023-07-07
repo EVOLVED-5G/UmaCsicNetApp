@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   # Name the volume chain
   name: db-persistent-volume-claim
+  namespace: uma-netapp
 spec:
   storageClassName: manual
   accessModes:
