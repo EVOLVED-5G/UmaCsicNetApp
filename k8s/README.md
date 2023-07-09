@@ -6,6 +6,15 @@
 
 evolved5g register-and-onboard-to-capif --config_file_full_path="/usr/src/app/capif_registration.json" --environment="development"
 
+**The networks part of the docker-compose.yaml file should be commented**
+
+```yaml
+# networks:
+#   default:
+#     name: services_default
+#     external: true
+```
+
 `docker compose build`
 
 Search the NetApp image
@@ -44,9 +53,9 @@ USER_NAME, NAMESPACE and TOKEN are needed from UMA
 
 If it does not return an error, it means that it is well connected
 
-If there is an error, it means that some of the above steps are wrongly done. Check it carefully
-
 ![respuesta](./images/Response.PNG)
+
+If there is an error, it means that some of the above steps are wrongly done. Check it carefully
 
 6. Add the endpoints in the /etc/hosts file of the NEF and CAPIF
 
