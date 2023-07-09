@@ -15,7 +15,6 @@ services:
   
  netapp:
    build: .
-   image: uma-netapp
    container_name: netapp
    ports:
     - "10001:10001"
