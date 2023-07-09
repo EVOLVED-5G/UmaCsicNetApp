@@ -15,7 +15,6 @@ services:
   
  netapp:
    build: .
-   image: uma-netapp
    container_name: netapp
    ports:
     - "10001:10001"
@@ -24,10 +23,10 @@ services:
    env_file:
       - .env 
 
-networks:
-  default:
-    name: services_default
-    external: true
+# networks:
+#   default:
+#     name: services_default
+#     external: true
 
 volumes:
  db-data:
