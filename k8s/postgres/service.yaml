@@ -1,17 +1,12 @@
 apiVersion: v1
-# Kind for service
 kind: Service
 metadata:
-  # Name your service
   name: postgresdb
   labels:
     app: postgresdb
-spec:
-  # Pod to route service traffic  
+spec: 
   selector:
     app: postgresdb
-  # Choose how to expose your service
   ports:
-    # The port number to expose the service
     - port: 5433
   
