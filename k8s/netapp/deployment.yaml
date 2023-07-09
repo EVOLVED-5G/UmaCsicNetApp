@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uma-netapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uma-netapp
+  template:
+    metadata:
+      labels:
+        app: uma-netapp
+    spec:
+      containers:
+        - name: uma-netapp
+          image: carlosandreo/uma-netapp:latest
+          imagePullPolicy: Always
+          env:
+            - name: FLASK_APP
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: FLASK_APP
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: SECRET_KEY
+            - name: SQLALCHEMY_DATABASE_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: SQLALCHEMY_DATABASE_URI
+            - name: SQLALCHEMY_TRACK_MODIFICATIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: SQLALCHEMY_TRACK_MODIFICATIONS
+            - name: SHOW_SQLALCHEMY_LOG_MESSAGES
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: SHOW_SQLALCHEMY_LOG_MESSAGES
+            - name: ERROR_404_HELP
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: ERROR_404_HELP
+            - name: NETAPPID
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: NETAPPID
+            - name: NEFHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: NEFHOST
+            - name: CAPIFHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: CAPIFHOST
+            - name: NEFUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: NEFUSER
+            - name: NEFPASS
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: NEFPASS
+            - name: CAPIFHTTPS
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: CAPIFHTTPS
+            - name: CAPIFHTTP
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: CAPIFHTTP
+            - name: CALLBACK_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: CALLBACK_ADDRESS
+            - name: NETAPPDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: NETAPPDIR
+            # - name: POSTGRES_USER
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: db-secret-credentials
+            #       key: POSTGRES_USER
+            # - name: POSTGRES_PASSWORD
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: db-secret-credentials
+            #       key: POSTGRES_PASSWORD
+            # - name: PGDATA
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: db-secret-credentials
+            #       key: PGDATA
+            # - name: POSTGRES_DB
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: db-secret-credentials
+            #       key: POSTGRES_DB
+            - name: PATH_TO_CERTS
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: PATH_TO_CERTS
+          ports:
+          - containerPort: 10001
+      hostAliases:
+      - hostnames:
+        - umacsic-nef.apps.ocp-epg.hi.inet
+        - umacsic-capif.apps.ocp-epg.hi.inet
+        ip: 10.11.23.49    
