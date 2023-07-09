@@ -8,5 +8,5 @@ flask_mail
 python-dotenv
 psycopg2-binary
 requests
-evolved5g==1.0.7
+evolved5g==1.0.8
 waitress
