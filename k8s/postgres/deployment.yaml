@@ -43,5 +43,5 @@ spec:
               name: db-data
       volumes:
         - name: db-data
-          persistentVolumeClaim:
-            claimName: db-persistent-volume-claim
+          hostPath:
+            path: "/var/lib/postgresql/data"
