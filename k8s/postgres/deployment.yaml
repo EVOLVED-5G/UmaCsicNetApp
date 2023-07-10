@@ -39,9 +39,9 @@ spec:
                   name: db-secret-credentials
                   key: PGDATA
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/umacsicnetapp/postgresql/data
               name: db-data
       volumes:
         - name: db-data
           hostPath:
-            path: "/var/lib/postgresql/data"
+            path: "/var/lib/umacsicnetapp/postgresql/data"
