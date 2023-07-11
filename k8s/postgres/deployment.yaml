@@ -16,7 +16,7 @@ spec:
         - name: postgresdb
           image: postgres
           ports:
-            - containerPort: 5433
+            - containerPort: 5432
           env:
             - name: POSTGRES_DB
               valueFrom:
@@ -39,9 +39,9 @@ spec:
                   name: db-secret-credentials
                   key: PGDATA
           volumeMounts:
-            - mountPath: /var/lib/umacsicnetapp/postgresql/data
+            - mountPath: /var/lib/postgresql/data
               name: db-data
       volumes:
         - name: db-data
-          hostPath:
-            path: "/var/lib/umacsicnetapp/postgresql/data"
+          persistentVolumeClaim:
+            claimName: db-persistent-volume-claim

@@ -9,3 +9,4 @@ spec:
     app: postgresdb
   ports:
     - port: 5433
+      targetPort: 5432
