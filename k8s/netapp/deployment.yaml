@@ -92,26 +92,6 @@ spec:
                 configMapKeyRef:
                   name: uma-configmap
                   key: NETAPPDIR
-            # - name: POSTGRES_USER
-            #   valueFrom:
-            #     configMapKeyRef:
-            #       name: db-secret-credentials
-            #       key: POSTGRES_USER
-            # - name: POSTGRES_PASSWORD
-            #   valueFrom:
-            #     configMapKeyRef:
-            #       name: db-secret-credentials
-            #       key: POSTGRES_PASSWORD
-            # - name: PGDATA
-            #   valueFrom:
-            #     configMapKeyRef:
-            #       name: db-secret-credentials
-            #       key: PGDATA
-            # - name: POSTGRES_DB
-            #   valueFrom:
-            #     configMapKeyRef:
-            #       name: db-secret-credentials
-            #       key: POSTGRES_DB
             - name: PATH_TO_CERTS
               valueFrom:
                 configMapKeyRef:
