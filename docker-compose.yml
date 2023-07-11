@@ -1,33 +1,10 @@
 services:
- db:
-   container_name: postgres_container
-   image: postgres
-   restart: always
-   env_file:
-      - .env 
-   expose:
-    - "5433"
-   ports:
-     - "5433:5433"
-   volumes:
-     - db-data:/var/lib/postgresql/data
-   command: -p 5433
-  
+
  netapp:
    build: .
    image: uma-netapp
    container_name: netapp
    ports:
     - "10001:10001"
-   links:
-    - db
    env_file:
       - .env 
-
-# networks:
-#   default:
-#     name: services_default
-#     external: true
-
-volumes:
- db-data:
