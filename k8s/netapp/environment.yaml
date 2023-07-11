@@ -17,7 +17,7 @@ data:
   CAPIFHTTP: "80" # 8080?
   CALLBACK_ADDRESS: "uma-netapp"
   NETAPPID: "myNetapp"
-  NETAPPDIR: "http://netapp:10001"
+  NETAPPDIR: "http://uma-netapp:10001"
   # POSTGRES_DB: "netappdb"
   # POSTGRES_USER: "netapp"
   # POSTGRES_PASSWORD: "secret"
