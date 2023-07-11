@@ -1,32 +1,40 @@
-# [Install CAPIF](https://github.com/EVOLVED-5G/CAPIF_API_Services)
+# [Access NEF](https://github.com/EVOLVED-5G/NEF_emulator)
 
-`cd services/`
+Add the endpoints in the /etc/hosts file of the NEF and CAPIF
 
-`./run.sh`
+To do this step it is necessary to run Notepad++ with administrator permissions. Once started, open the file located in the path:
 
-# [Install NEF](https://github.com/EVOLVED-5G/NEF_emulator)
+`C:\Windows\System32\drivers\etc\hosts`
 
-If you dont have install make:
+Add the endpoints provided by Telefonica and save the file
 
-`apt install jq`
+Open a browser and search for:
 
-Then continue with NEF installation
+http://umacsic-nef.apps.ocp-epg.hi.inet:80
 
-`make prepare-dev-env`
+Import escenario
 
-`make build`
+# [Smart Irrigation NetApp](https://github.com/EVOLVED-5G/UmaCsicNetApp)
 
-`make up`
+Postgres
 
-Login to the admin dashboard NEF and import scenary
+`kubectl apply -f environment.yaml`
 
-# [Smart Irrigation netApp](https://github.com/EVOLVED-5G/UmaCsicNetApp)
+`kubectl apply -f pv.yaml`
 
-## Steps to start the container:
+`kubectl apply -f pvc.yaml`
 
-`docker compose build`
+`kubectl apply -f deployment.yaml`
 
-`docker compose up`
+`kubectl apply -f service.yaml`
+
+NetApp
+
+`kubectl apply -f environment.yaml`
+
+`kubectl apply -f deployment.yaml`
+
+`kubectl apply -f service.yaml`
 
 ## Create cell
 
@@ -48,7 +56,9 @@ import json
 from requests import post, get, delete
 from datetime import datetime
 
-response = post("http://localhost:10001/api/cells",data={'cell_num' : '...'})
+# the dirIp is the one provided by the kubernetes cluster
+
+response = post("http://dirIp:10001/api/cells",data={'cell_num' : '...'})
 
 print(response.content)
 ```
