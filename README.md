@@ -44,6 +44,24 @@ pgAdmin
 
 `kubectl apply -f service.yaml`
 
+Open a browser and search: http://dirIP:port where dirIp and port are those provided by the cluster
+
+Enter the user and password whose values are specified in the pgAdmin environment file
+
+Create the connection to the posgresql database:
+
+* Servers - Register - Server
+
+* General - Name - value specified in the postgresql environment file
+
+* Connection - Hostname - container name specified in the postgresql deployment file
+
+* Connection - Port - value specified in the postgresql service file
+
+* Connection - Username - value specified in the postgresql environment file
+
+* Connection - Password - value specified in the postgresql environment file
+
 ## Create cell
 
 ### By python file
