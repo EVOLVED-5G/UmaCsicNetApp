@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uma-netapp-pgadmin-configmap
+  labels:
+    app: pgadmin-netapp
+data:
+  PGADMIN_DEFAULT_EMAIL: "user@user.com"
+  PGADMIN_DEFAULT_PASSWORD: "pwd"
