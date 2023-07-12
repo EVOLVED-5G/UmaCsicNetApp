@@ -36,6 +36,14 @@ NetApp
 
 `kubectl apply -f service.yaml`
 
+pgAdmin
+
+`kubectl apply -f environment.yaml`
+
+`kubectl apply -f deployment.yaml`
+
+`kubectl apply -f service.yaml`
+
 ## Create cell
 
 ### By python file
