@@ -97,6 +97,11 @@ spec:
                 configMapKeyRef:
                   name: uma-configmap
                   key: PATH_TO_CERTS
+            - name: ENVIRONMENT_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: ENVIRONMENT_MODE
           ports:
           - containerPort: 10001
       hostAliases:

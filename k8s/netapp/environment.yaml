@@ -19,3 +19,4 @@ data:
   NETAPPID: "myNetapp"
   NETAPPDIR: "http://uma-netapp:10001"
   PATH_TO_CERTS: "/usr/src/app/certs"
+  ENVIRONMENT_MODE: "development"
