@@ -16,33 +16,33 @@ Import escenario
 
 # [Smart Irrigation NetApp](https://github.com/EVOLVED-5G/UmaCsicNetApp)
 
-Postgres
+[Postgres](./k8s/postgres/)
 
-`kubectl apply -f environment.yaml`
+`kubectl apply -f ` [environment.yaml](./k8s/postgres/environment.yaml)
 
-`kubectl apply -f pv.yaml`
+`kubectl apply -f ` [pv.yaml](./k8s/postgres/pv.yaml)
 
-`kubectl apply -f pvc.yaml`
+`kubectl apply -f ` [pvc.yaml](./k8s/postgres/pvc.yaml)
 
-`kubectl apply -f deployment.yaml`
+`kubectl apply -f ` [deployment.yaml](./k8s/postgres/deployment.yaml)
 
-`kubectl apply -f service.yaml`
+`kubectl apply -f ` [service.yaml](./k8s/postgres/service.yaml)
 
-NetApp
+[NetApp](./k8s/netapp/)
 
-`kubectl apply -f environment.yaml`
+`kubectl apply -f ` [environment.yaml](./k8s/netapp/environment.yaml)
 
-`kubectl apply -f deployment.yaml`
+`kubectl apply -f ` [deployment.yaml](./k8s/netapp/deployment.yaml)
 
-`kubectl apply -f service.yaml`
+`kubectl apply -f ` [service.yaml](./k8s/netapp/service.yaml)
 
-pgAdmin
+[pgAdmin](./k8s/pgadmin/)
 
-`kubectl apply -f environment.yaml`
+`kubectl apply -f ` [environment.yaml](./k8s/pgadmin/environment.yaml)
 
-`kubectl apply -f deployment.yaml`
+`kubectl apply -f ` [deployment.yaml](./k8s/pgadmin/deployment.yaml)
 
-`kubectl apply -f service.yaml`
+`kubectl apply -f ` [service.yaml](./k8s/pgadmin/service.yaml)
 
 Open a browser and search: http://dirIP:port where dirIp and port are those provided by the cluster
 
@@ -52,15 +52,19 @@ Create the connection to the posgresql database:
 
 * Servers - Register - Server
 
-* General - Name - value specified in the postgresql environment file
+* General 
+  
+    * Name - value specified in the postgresql environment file
 
-* Connection - Hostname - container name specified in the postgresql deployment file
+* Connection
+ 
+    * Hostname - container name specified in the postgresql deployment file
 
-* Connection - Port - value specified in the postgresql service file
+    * Port - value specified in the postgresql service file
 
-* Connection - Username - value specified in the postgresql environment file
+    * Username - value specified in the postgresql environment file
 
-* Connection - Password - value specified in the postgresql environment file
+    * Password - value specified in the postgresql environment file
 
 ## Create cell
 
@@ -76,13 +80,15 @@ Activate environment
 
 `pip install requests`
 
+Create a file
+
 ```python
 # datalogger.py
 import json
-from requests import post, get, delete
-from datetime import datetime
+from requests import post
 
-# the dirIp is the one provided by the kubernetes cluster
+# the dirIp value is the one provided by the kubernetes cluster
+# the port value is the one set in the NetApp service
 
 response = post("http://dirIp:10001/api/cells",data={'cell_num' : '...'})
 
@@ -93,7 +99,7 @@ print(response.content)
 
 ## Endpoints
 
-**The dirIp is the one provided by the kubernetes cluster**
+**The value of the dirIp is the one provided by the kubernetes cluster**
 
 ### Cell Management 
 
@@ -175,7 +181,7 @@ Clear the database of the netApp
 
 # Validate NetApp
 
-Create a post type request using Postman
+Create a POST type request using Postman
 
 ```json
 {
@@ -189,6 +195,6 @@ Create a post type request using Postman
 }
 ```
 
-If no environment is set, it will use by default athenas kubernetes
+If no environment is set, it will use by default Athens kubernetes
 
 Check the state of the request
