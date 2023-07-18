@@ -12,37 +12,37 @@ Open a browser and search for:
 
 http://umacsic-nef.apps.ocp-epg.hi.inet:80
 
-Import escenario
+Import escenario and start all
 
 # [Smart Irrigation NetApp](https://github.com/EVOLVED-5G/UmaCsicNetApp)
 
 [Postgres](./k8s/postgres/)
 
-`kubectl apply -f ` [environment.yaml](./k8s/postgres/environment.yaml)
+`kubectl apply -f` [environment.yaml](./k8s/postgres/environment.yaml)
 
-`kubectl apply -f ` [pv.yaml](./k8s/postgres/pv.yaml)
+`kubectl apply -f` [pv.yaml](./k8s/postgres/pv.yaml)
 
-`kubectl apply -f ` [pvc.yaml](./k8s/postgres/pvc.yaml)
+`kubectl apply -f` [pvc.yaml](./k8s/postgres/pvc.yaml)
 
-`kubectl apply -f ` [deployment.yaml](./k8s/postgres/deployment.yaml)
+`kubectl apply -f` [deployment.yaml](./k8s/postgres/deployment.yaml)
 
-`kubectl apply -f ` [service.yaml](./k8s/postgres/service.yaml)
+`kubectl apply -f` [service.yaml](./k8s/postgres/service.yaml)
 
 [NetApp](./k8s/netapp/)
 
-`kubectl apply -f ` [environment.yaml](./k8s/netapp/environment.yaml)
+`kubectl apply -f` [environment.yaml](./k8s/netapp/environment.yaml)
 
-`kubectl apply -f ` [deployment.yaml](./k8s/netapp/deployment.yaml)
+`kubectl apply -f` [deployment.yaml](./k8s/netapp/deployment.yaml)
 
-`kubectl apply -f ` [service.yaml](./k8s/netapp/service.yaml)
+`kubectl apply -f` [service.yaml](./k8s/netapp/service.yaml)
 
 [pgAdmin](./k8s/pgadmin/)
 
-`kubectl apply -f ` [environment.yaml](./k8s/pgadmin/environment.yaml)
+`kubectl apply -f` [environment.yaml](./k8s/pgadmin/environment.yaml)
 
-`kubectl apply -f ` [deployment.yaml](./k8s/pgadmin/deployment.yaml)
+`kubectl apply -f` [deployment.yaml](./k8s/pgadmin/deployment.yaml)
 
-`kubectl apply -f ` [service.yaml](./k8s/pgadmin/service.yaml)
+`kubectl apply -f` [service.yaml](./k8s/pgadmin/service.yaml)
 
 Open a browser and search: http://dirIP:port where dirIp and port are those provided by the cluster
 
