@@ -4,7 +4,9 @@
 
 **The NetApp .sh file has to have the environment as development**
 
-evolved5g register-and-onboard-to-capif --config_file_full_path="/usr/src/app/capif_registration.json" --environment="development"
+ENVIRONMENT_MODE = "development"
+
+evolved5g register-and-onboard-to-capif --config_file_full_path="/usr/src/app/capif_registration.json" --environment="$ENVIRONMENT_MODE"
 
 **The networks part of the docker-compose.yaml file should be commented**
 
