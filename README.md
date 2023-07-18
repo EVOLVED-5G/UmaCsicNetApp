@@ -6,11 +6,11 @@ To do this step it is necessary to run Notepad++ with administrator permissions.
 
 `C:\Windows\System32\drivers\etc\hosts`
 
-Add the endpoints provided by Telefonica and save the file
+Add NEF and CAPIF endpoints provided by Telefonica and save the file
 
 Open a browser and search for:
 
-http://umacsic-nef.apps.ocp-epg.hi.inet:80
+http://nefEndpoint:80
 
 Import escenario and start all
 
