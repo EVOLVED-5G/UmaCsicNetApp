@@ -11,6 +11,6 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  persistenVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: "/var/lib/postgresql/data"
