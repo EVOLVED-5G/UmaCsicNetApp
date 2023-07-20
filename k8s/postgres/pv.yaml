@@ -8,8 +8,9 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 8Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteMany
+  persistenVolumeReclaimPolicy: Delete
   hostPath:
     path: "/var/lib/postgresql/data"
