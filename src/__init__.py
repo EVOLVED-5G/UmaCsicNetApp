@@ -15,7 +15,6 @@ mail = Mail()
 # Create function init
 def create_app(config=Config):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
     app.config.from_object(config)
     
     db.init_app(app)
