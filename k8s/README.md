@@ -37,7 +37,7 @@ Search the NetApp image
 
 4. Enter the following commands in a terminal in the order shown below:
 
-`kubectl config set-cluster <CLUSTER_NAME> --server=https://10.173.0.117:8383 --insecure-skip-tls-verify=true`
+`kubectl config set-cluster <CLUSTER_NAME> --server=<API_SERVER:PORT> --insecure-skip-tls-verify=true`
 
 `kubectl config set-credentials <USER_NAME> --token=<TOKEN>`
 
