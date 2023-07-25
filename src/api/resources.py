@@ -1,5 +1,8 @@
-from flask import request, jsonify
+import io
+
+from flask import request, jsonify, send_file
 from flask_restful import Resource, Api
+from requests import get, post, delete
 from os import environ
 
 from src import db
@@ -246,6 +249,86 @@ def clear_data():
     db.session.commit()
     return jsonify({"status":"success"})
 
+def get_path_storage():
+    return environ.get('CAM_SERVER')
+
+# Webcam Management API Class
+class WebcamManagement(Resource):
+    def post(self, band):
+        """
+        Save an image
+        """
+        storage_api = get_path_storage()
+        process = request.args.get('process')
+        response = ''
+        if process is not None:
+            response = post(storage_api + '/' + band + '?process=' + process)
+        else:
+            response = post(storage_api + '/' + band)
+        content_json = response.json()
+        return content_json
+
+class WebcamProcessedManagement(Resource):
+    def get(self, band):
+        """
+        Retrieve a processed image
+        """
+        storage_api = get_path_storage()
+        process = request.args.get('process')
+        response = ''
+        if process is not None:
+            response = get(storage_api + '/processed/' + band + '?process=' + process)
+        else:
+            response = get(storage_api + '/processed/' + band)
+        if(response.status_code == 200):
+            content_bytes = response.content
+            image = io.BytesIO(content_bytes)
+            return send_file(image, mimetype='image/jpg')
+        else:
+            content_json = response.json()
+            return content_json
+
+    def delete(self, band):
+        """
+        Delete a processed image
+        """
+        storage_api = get_path_storage()
+        process = request.args.get('process')
+        response = ''
+        if process is not None:
+            response = delete(storage_api + '/processed/' + band + '?process=' + process)
+        else:
+            response = delete(storage_api + '/processed/' + band)
+        content_json = response.json()
+        return content_json
+
+class WebcamNormalManagement(Resource):
+    def get(self, band):
+        """
+        Retrieve the image that captures the indicated band
+        """
+        storage_api = get_path_storage()
+        response = get(storage_api + '/normal/' + band)
+        if(response.status_code == 200):
+            content_bytes = response.content
+            image = io.BytesIO(content_bytes)
+            return send_file(image, mimetype='image/jpg')
+        else:
+            content_json = response.json()
+            return content_json
+    
+    def delete(self, band):
+        """
+        Delete a processed image
+        """
+        storage_api = get_path_storage()
+        response = delete(storage_api + '/normal/' + band)
+        content_json = response.json()
+        return content_json
+
 # Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')
+api.add_resource(WebcamManagement, '/images/<string:band>')
+api.add_resource(WebcamProcessedManagement, '/images/processed/<string:band>')
+api.add_resource(WebcamNormalManagement, '/images/normal/<string:band>')
