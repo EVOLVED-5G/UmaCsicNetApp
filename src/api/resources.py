@@ -1,4 +1,5 @@
 import io
+import time
 
 from flask import request, jsonify, send_file
 from flask_restful import Resource, Api
@@ -263,11 +264,13 @@ class WebcamManagement(Resource):
         response = ''
         switch_on_cam = get(webcam_api + '/api/smartplug/switchon')
         if switch_on_cam.status_code == 200:
+            time.sleep(80)
             if process is not None:
                 response = post(webcam_api + '/api/images/' + band + '?process=' + process)
             else:
                 response = post(webcam_api + '/api/images/' + band)
             content_json = response.json()
+            time.sleep(60)
             switch_off_cam = get(webcam_api + '/api/smartplug/switchoff')
             if switch_off_cam.status_code == 200:
                 return content_json
