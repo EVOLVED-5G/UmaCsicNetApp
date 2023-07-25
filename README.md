@@ -135,6 +135,38 @@ http://localhost:10001/api/database/utils/clear
 
 Clear the database of the netApp
 
+### Webcam Api
+
+#### Post
+
+http://dirIp:10001/api/images/{band}?process={process}
+
+Save an image with required band and process not required to apply to the image
+
+#### Get
+
+http://dirIp:10001/api/images/normal/{band}
+
+Retrieve an image with required band and process not required to apply to the image
+
+#### Delete
+
+http://dirIp:10001/api/images/normal/{band}
+
+Delete the image that captures the indicated band
+
+#### Get
+
+http://dirIp:10001/api/images/processed/{band}?process={process}
+
+Retrieve a processed image
+
+#### Delete
+
+http://dirIp:10001/api/images/processed/{band}?process={process}
+
+Delete a processed image
+
 # Validate netApp
 
 Create a post type request using Postman
