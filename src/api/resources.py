@@ -1,5 +1,9 @@
-from flask import request, jsonify
+import io
+import time
+
+from flask import request, jsonify, send_file
 from flask_restful import Resource, Api
+from requests import get, post, delete
 from os import environ
 
 from src import db
@@ -246,6 +250,96 @@ def clear_data():
     db.session.commit()
     return jsonify({"status":"success"})
 
+def get_path_cam():
+    return environ.get('CAM_SERVER')
+
+# Webcam Management API Class
+class WebcamManagement(Resource):
+    def post(self, band):
+        """
+        Save an image
+        """
+        webcam_api = get_path_cam()
+        process = request.args.get('process')
+        response = ''
+        switch_on_cam = get(webcam_api + '/api/smartplug/switchon')
+        if switch_on_cam.status_code == 200:
+            time.sleep(80)
+            if process is not None:
+                response = post(webcam_api + '/api/images/' + band + '?process=' + process)
+            else:
+                response = post(webcam_api + '/api/images/' + band)
+            content_json = response.json()
+            time.sleep(60)
+            switch_off_cam = get(webcam_api + '/api/smartplug/switchoff')
+            if switch_off_cam.status_code == 200:
+                return content_json
+            else:
+                return switch_off_cam.json()
+        else:
+            return switch_on_cam.json()
+
+class WebcamProcessedManagement(Resource):
+    def get(self, band):
+        """
+        Retrieve a processed image
+        """
+        webcam_api = get_path_cam()
+        process = request.args.get('process')
+        response = ''
+        if process is not None:
+            response = get(webcam_api + '/api/images/processed/' + band + '?process=' + process)
+        else:
+            response = get(webcam_api + '/api/images/processed/' + band)
+        if(response.status_code == 200):
+            content_bytes = response.content
+            image = io.BytesIO(content_bytes)
+            return send_file(image, mimetype='image/jpg')
+        else:
+            content_json = response.json()
+            return content_json
+
+    def delete(self, band):
+        """
+        Delete a processed image
+        """
+        webcam_api = get_path_cam()
+        process = request.args.get('process')
+        response = ''
+        if process is not None:
+            response = delete(webcam_api + '/api/images/processed/' + band + '?process=' + process)
+        else:
+            response = delete(webcam_api + '/api/images/processed/' + band)
+        content_json = response.json()
+        return content_json
+
+class WebcamNormalManagement(Resource):
+    def get(self, band):
+        """
+        Retrieve the image that captures the indicated band
+        """
+        webcam_api = get_path_cam()
+        response = get(webcam_api + '/api/images/normal/' + band)
+        if(response.status_code == 200):
+            content_bytes = response.content
+            image = io.BytesIO(content_bytes)
+            return send_file(image, mimetype='image/jpg')
+        else:
+            content_json = response.json()
+            return content_json
+    
+    def delete(self, band):
+        """
+        Delete a normal image
+        """
+        webcam_api = get_path_cam()
+        response = delete(webcam_api + '/api/images/normal/' + band)
+        content_json = response.json()
+        return content_json
+
 # Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')
+api.add_resource(WebcamManagement, '/images/<string:band>')
+api.add_resource(WebcamProcessedManagement, '/images/processed/<string:band>')
+api.add_resource(WebcamNormalManagement, '/images/normal/<string:band>')
