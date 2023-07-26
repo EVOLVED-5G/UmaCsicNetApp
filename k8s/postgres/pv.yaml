@@ -6,7 +6,7 @@ metadata:
     type: local
     app: postgresdb
 spec:
-  storageClassName: manual
+  storageClassName: kadalu.storage-pool-1
   capacity:
     storage: 1Gi
   accessModes:

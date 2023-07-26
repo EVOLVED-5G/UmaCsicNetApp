@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: db-persistent-volume-claim
 spec:
-  storageClassName: manual
+  storageClassName: kadalu.storage-pool-1
   accessModes:
     - ReadWriteMany
   resources:
