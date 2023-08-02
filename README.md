@@ -59,7 +59,7 @@ print(response.content)
 
 ### Cell Management 
 
-#### Get 
+#### [GET] 
 
 http://localhost:10001/api/cells
 
@@ -73,7 +73,7 @@ http://localhost:10001/api/cells/{cell-number}?verbose=yes
 
 Verbose option sends a more detailed description about the cell
 
-#### Post 
+#### [POST] 
 
 http://localhost:10001/api/cells 
 
@@ -81,7 +81,7 @@ http://localhost:10001/api/cells
 
 Creates a new cell entry in the netApp database with the retrieved data in the post request
 
-#### Put 
+#### [PUT] 
 
 http://localhost:10001/api/cells/{cell-number}
 
@@ -89,7 +89,7 @@ http://localhost:10001/api/cells/{cell-number}
 
 Updates the cell that has the cellNumber given in the endpoint
 
-#### Delete
+#### [DELETE]
 
 http://localhost:10001/api/cells/{cell-number}
 
@@ -99,7 +99,7 @@ Deletes the cell with the given cellNumber with its historics
 
 These endpoints provide access to the data stored in the netapp. They can be used by any Vertical App
 
-#### Get 
+#### [GET] 
 
 http://localhost:10001/api/historics
 
@@ -107,13 +107,13 @@ http://localhost:10001/api/historics?from={index}
 
 From parameter is used to requests historics from the given index to the last.
 
-#### Post 
+#### [POST] 
 
 http://localhost:10001/api/historics
 
 - data = HS10_0, HS10_1, HS10_2, HS30_0, HS30_1, HS30_2, HS50_0, HS50_1, HS50_2, FullBR, AirTC, RH, timestamp
 
-#### Put 
+#### [PUT] 
 
 http://localhost:10001/api/historics/{historic-id}
 
@@ -121,7 +121,7 @@ http://localhost:10001/api/historics/{historic-id}
 
 Updates the historic that has the historic_id given in the endpoint
 
-#### Delete 
+#### [DELETE] 
 
 http://localhost:10001/api/historics/{historic_id}
 
@@ -129,7 +129,7 @@ Deletes the historic which has the historic_id given in the endpoint
 
 ### Database utils
 
-#### Get 
+#### [GET] 
 
 http://localhost:10001/api/database/utils/clear
 
@@ -137,39 +137,51 @@ Clear the database of the netApp
 
 ### Webcam Api
 
-#### Post
+#### [POST]
 
-http://dirIp:10001/api/images/{band}?process={process}
+http://localhost:10001/api/images/{band}?process={process}
 
-Save an image with required band and process not required to apply to the image
+Save an image with required band. Process not required to apply to the image
 
-#### Get
+#### [GET]
 
-http://dirIp:10001/api/images/normal/{band}
+http://localhost:10001/api/images/normal/{nameimage}
 
-Retrieve an image with required band and process not required to apply to the image
+Retrieve an image with required name
 
-#### Delete
+#### [DELETE]
 
-http://dirIp:10001/api/images/normal/{band}
+http://localhost:10001/api/images/normal/{nameimage}
 
-Delete the image that captures the indicated band
+Delete the image with the specified name
 
-#### Get
+#### [GET]
 
-http://dirIp:10001/api/images/processed/{band}?process={process}
+http://localhost:10001/api/images/processed/{nameimage}
 
 Retrieve a processed image
 
-#### Delete
+#### [DELETE]
 
-http://dirIp:10001/api/images/processed/{band}?process={process}
+http://localhost:10001/api/images/processed/{nameimage}
 
 Delete a processed image
 
-# Validate netApp
+#### [GET]
 
-Create a post type request using Postman
+http://localhost:10001/api/images/normal
+
+Retrieve the name of all stored normal images
+
+#### [GET]
+
+http://localhost:10001/api/images/processed
+
+Retrieve the name of all stored processed images
+
+# Validate NetApp
+
+Create a POST type request using Postman
 
 ```json
 {
@@ -183,6 +195,6 @@ Create a post type request using Postman
 }
 ```
 
-If no environment is set, it will use by default athenas kubernetes
+If no environment is set, it will use by default Athens kubernetes
 
 Check the state of the request
