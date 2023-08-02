@@ -1,5 +1,6 @@
 import io
 import time
+import json
 
 from flask import request, jsonify, send_file
 from flask_restful import Resource, Api
@@ -279,67 +280,76 @@ class WebcamManagement(Resource):
         else:
             return switch_on_cam.json()
 
-class WebcamProcessedManagement(Resource):
-    def get(self, band):
-        """
-        Retrieve a processed image
-        """
-        webcam_api = get_path_cam()
-        process = request.args.get('process')
-        response = ''
-        if process is not None:
-            response = get(webcam_api + '/api/images/processed/' + band + '?process=' + process)
-        else:
-            response = get(webcam_api + '/api/images/processed/' + band)
-        if(response.status_code == 200):
-            content_bytes = response.content
-            image = io.BytesIO(content_bytes)
-            return send_file(image, mimetype='image/jpg')
-        else:
-            content_json = response.json()
-            return content_json
-
-    def delete(self, band):
-        """
-        Delete a processed image
-        """
-        webcam_api = get_path_cam()
-        process = request.args.get('process')
-        response = ''
-        if process is not None:
-            response = delete(webcam_api + '/api/images/processed/' + band + '?process=' + process)
-        else:
-            response = delete(webcam_api + '/api/images/processed/' + band)
-        content_json = response.json()
-        return content_json
-
 class WebcamNormalManagement(Resource):
-    def get(self, band):
+    def get(self, nameimage):
         """
-        Retrieve the image that captures the indicated band
+        Retrieve the image with the specific name
         """
         webcam_api = get_path_cam()
-        response = get(webcam_api + '/api/images/normal/' + band)
+        response = get(webcam_api + '/api/images/normal/' + nameimage)
         if(response.status_code == 200):
             content_bytes = response.content
             image = io.BytesIO(content_bytes)
-            return send_file(image, mimetype='image/jpg')
+            return send_file(image, mimetype='image/png')
         else:
             content_json = response.json()
             return content_json
     
-    def delete(self, band):
+    def delete(self, nameimage):
         """
         Delete a normal image
         """
         webcam_api = get_path_cam()
-        response = delete(webcam_api + '/api/images/normal/' + band)
+        response = delete(webcam_api + '/api/images/normal/' + nameimage)
         content_json = response.json()
         return content_json
 
+class WebcamProcessedManagement(Resource):
+    def get(self, nameimage):
+        """
+        Retrieve a processed image with specific name
+        """
+        webcam_api = get_path_cam()
+        response = get(webcam_api + '/api/images/processed/' + nameimage)
+        if(response.status_code == 200):
+            content_bytes = response.content
+            image = io.BytesIO(content_bytes)
+            return send_file(image, mimetype='image/png')
+        else:
+            content_json = response.json()
+            return content_json
+
+    def delete(self, nameimage):
+        """
+        Delete a processed image
+        """
+        webcam_api = get_path_cam()
+        response = get(webcam_api + '/api/images/processed/' + nameimage)
+        return response.json()
+
+class WebcamNameNormalImages(Resource):
+    def get(self):
+        """
+        Retrieve the name of all stored normal images
+        """
+        webcam_api = get_path_cam()
+        list_normal = get(webcam_api + '/api/images/normal')
+        return list_normal.json()
+
+class WebcamNameProcessedImages(Resource):
+    def get(self):
+        """
+        Retrieve the name of all stored processed images
+        """
+        webcam_api = get_path_cam()
+        list_processed = get(webcam_api + '/api/images/processed')
+        return list_processed.json()
+    
 # Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')
-api.add_resource(WebcamManagement, '/images/<string:band>')
-api.add_resource(WebcamProcessedManagement, '/images/processed/<string:band>')
-api.add_resource(WebcamNormalManagement, '/images/normal/<string:band>')
+api.add_resource(WebcamManagement, '/images/<string:nameimage>')
+api.add_resource(WebcamProcessedManagement, '/images/processed/<string:nameimage>')
+api.add_resource(WebcamNormalManagement, '/images/normal/<string:nameimage>')
+api.add_resource(WebcamNameNormalImages, '/images/normal')
+api.add_resource(WebcamNameProcessedImages, '/images/processed')
