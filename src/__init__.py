@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_mail import Mail
+from flask_cors import CORS
 
 # Init database
 db = SQLAlchemy()
@@ -15,6 +16,7 @@ mail = Mail()
 # Create function init
 def create_app(config=Config):
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(config)
     
     db.init_app(app)
