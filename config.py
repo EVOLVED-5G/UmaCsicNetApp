@@ -14,3 +14,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI') 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SHOW_SQLALCHEMY_LOG_MESSAGES = False
+
+    # Telegram configuration
+    TELEGRAM_TOKEN = environ.get('TELEGRAM_TOKEN')
+    TELEGRAM_CHAT_ID = environ.get('TELEGRAM_CHAT_ID')
