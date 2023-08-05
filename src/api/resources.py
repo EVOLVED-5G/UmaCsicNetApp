@@ -1,6 +1,5 @@
 import io
 import time
-import json
 
 from flask import request, jsonify, send_file
 from flask_restful import Resource, Api
@@ -254,8 +253,8 @@ def clear_data():
 def get_path_cam():
     return environ.get('MULTIESPECTRALCAM_SERVER')
 
-# Webcam Management API Class
-class WebcamManagement(Resource):
+# Multiespectralcam Management API Class
+class MultiespectralcamManagement(Resource):
     def post(self, band):
         """
         Save an image
@@ -280,7 +279,7 @@ class WebcamManagement(Resource):
         else:
             return switch_on_cam.json()
 
-class WebcamNormalManagement(Resource):
+class MultiespectralcamNormalManagement(Resource):
     def get(self, nameimage):
         """
         Retrieve the image with the specific name
@@ -304,7 +303,7 @@ class WebcamNormalManagement(Resource):
         content_json = response.json()
         return content_json
 
-class WebcamProcessedManagement(Resource):
+class MultiespectralcamProcessedManagement(Resource):
     def get(self, nameimage):
         """
         Retrieve a processed image with specific name
@@ -327,7 +326,7 @@ class WebcamProcessedManagement(Resource):
         response = get(multiespectralcam_api + '/api/images/processed/' + nameimage)
         return response.json()
 
-class WebcamNameNormalImages(Resource):
+class MultiespectralcamNameNormalImages(Resource):
     def get(self):
         """
         Retrieve the name of all stored normal images
@@ -336,7 +335,7 @@ class WebcamNameNormalImages(Resource):
         list_normal = get(multiespectralcam_api + '/api/images/normal')
         return list_normal.json()
 
-class WebcamNameProcessedImages(Resource):
+class MultiespectralcamNameProcessedImages(Resource):
     def get(self):
         """
         Retrieve the name of all stored processed images
@@ -348,8 +347,8 @@ class WebcamNameProcessedImages(Resource):
 # Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')
-api.add_resource(WebcamManagement, '/images/<string:nameimage>')
-api.add_resource(WebcamProcessedManagement, '/images/processed/<string:nameimage>')
-api.add_resource(WebcamNormalManagement, '/images/normal/<string:nameimage>')
-api.add_resource(WebcamNameNormalImages, '/images/normal')
-api.add_resource(WebcamNameProcessedImages, '/images/processed')
+api.add_resource(MultiespectralcamManagement, '/images/<string:nameimage>')
+api.add_resource(MultiespectralcamProcessedManagement, '/images/processed/<string:nameimage>')
+api.add_resource(MultiespectralcamNormalManagement, '/images/normal/<string:nameimage>')
+api.add_resource(MultiespectralcamNameNormalImages, '/images/normal')
+api.add_resource(MultiespectralcamNameProcessedImages, '/images/processed')
