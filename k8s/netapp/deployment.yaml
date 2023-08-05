@@ -107,6 +107,16 @@ spec:
                 configMapKeyRef:
                   name: uma-configmap
                   key: MULTIESPECTRALCAM_SERVER
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: TELEGRAM_TOKEN
+            - name: TELEGRAM_CHAT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: uma-configmap
+                  key: TELEGRAM_CHAT_ID
           ports:
           - containerPort: 10001
       hostAliases:
