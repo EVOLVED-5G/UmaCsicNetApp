@@ -5,7 +5,6 @@ flask_migrate
 flask_marshmallow
 flask-cors
 marshmallow-sqlalchemy
-flask_mail
 python-dotenv
 psycopg2-binary
 requests
