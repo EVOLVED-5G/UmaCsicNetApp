@@ -252,7 +252,7 @@ def clear_data():
     return jsonify({"status":"success"})
 
 def get_path_cam():
-    return environ.get('CAM_SERVER')
+    return environ.get('MULTIESPECTRALCAM_SERVER')
 
 # Webcam Management API Class
 class WebcamManagement(Resource):
@@ -260,19 +260,19 @@ class WebcamManagement(Resource):
         """
         Save an image
         """
-        webcam_api = get_path_cam()
+        multiespectralcam_api = get_path_cam()
         process = request.args.get('process')
         response = ''
-        switch_on_cam = get(webcam_api + '/api/smartplug/switchon')
+        switch_on_cam = get(multiespectralcam_api + '/api/smartplug/switchon')
         if switch_on_cam.status_code == 200:
             time.sleep(80)
             if process is not None:
-                response = post(webcam_api + '/api/images/' + band + '?process=' + process)
+                response = post(multiespectralcam_api + '/api/images/' + band + '?process=' + process)
             else:
-                response = post(webcam_api + '/api/images/' + band)
+                response = post(multiespectralcam_api + '/api/images/' + band)
             content_json = response.json()
             time.sleep(60)
-            switch_off_cam = get(webcam_api + '/api/smartplug/switchoff')
+            switch_off_cam = get(multiespectralcam_api + '/api/smartplug/switchoff')
             if switch_off_cam.status_code == 200:
                 return content_json
             else:
@@ -285,8 +285,8 @@ class WebcamNormalManagement(Resource):
         """
         Retrieve the image with the specific name
         """
-        webcam_api = get_path_cam()
-        response = get(webcam_api + '/api/images/normal/' + nameimage)
+        multiespectralcam_api = get_path_cam()
+        response = get(multiespectralcam_api + '/api/images/normal/' + nameimage)
         if(response.status_code == 200):
             content_bytes = response.content
             image = io.BytesIO(content_bytes)
@@ -299,8 +299,8 @@ class WebcamNormalManagement(Resource):
         """
         Delete a normal image
         """
-        webcam_api = get_path_cam()
-        response = delete(webcam_api + '/api/images/normal/' + nameimage)
+        multiespectralcam_api = get_path_cam()
+        response = delete(multiespectralcam_api + '/api/images/normal/' + nameimage)
         content_json = response.json()
         return content_json
 
@@ -309,8 +309,8 @@ class WebcamProcessedManagement(Resource):
         """
         Retrieve a processed image with specific name
         """
-        webcam_api = get_path_cam()
-        response = get(webcam_api + '/api/images/processed/' + nameimage)
+        multiespectralcam_api = get_path_cam()
+        response = get(multiespectralcam_api + '/api/images/processed/' + nameimage)
         if(response.status_code == 200):
             content_bytes = response.content
             image = io.BytesIO(content_bytes)
@@ -323,8 +323,8 @@ class WebcamProcessedManagement(Resource):
         """
         Delete a processed image
         """
-        webcam_api = get_path_cam()
-        response = get(webcam_api + '/api/images/processed/' + nameimage)
+        multiespectralcam_api = get_path_cam()
+        response = get(multiespectralcam_api + '/api/images/processed/' + nameimage)
         return response.json()
 
 class WebcamNameNormalImages(Resource):
@@ -332,8 +332,8 @@ class WebcamNameNormalImages(Resource):
         """
         Retrieve the name of all stored normal images
         """
-        webcam_api = get_path_cam()
-        list_normal = get(webcam_api + '/api/images/normal')
+        multiespectralcam_api = get_path_cam()
+        list_normal = get(multiespectralcam_api + '/api/images/normal')
         return list_normal.json()
 
 class WebcamNameProcessedImages(Resource):
@@ -341,8 +341,8 @@ class WebcamNameProcessedImages(Resource):
         """
         Retrieve the name of all stored processed images
         """
-        webcam_api = get_path_cam()
-        list_processed = get(webcam_api + '/api/images/processed')
+        multiespectralcam_api = get_path_cam()
+        list_processed = get(multiespectralcam_api + '/api/images/processed')
         return list_processed.json()
     
 # Endpoints

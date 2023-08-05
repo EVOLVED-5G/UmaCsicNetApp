@@ -102,11 +102,11 @@ spec:
                 configMapKeyRef:
                   name: uma-configmap
                   key: ENVIRONMENT_MODE
-            - name: CAM_SERVER
+            - name: MULTIESPECTRALCAM_SERVER
               valueFrom:
                 configMapKeyRef:
                   name: uma-configmap
-                  key: CAM_SERVER
+                  key: MULTIESPECTRALCAM_SERVER
           ports:
           - containerPort: 10001
       hostAliases:

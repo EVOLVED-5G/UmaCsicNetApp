@@ -20,4 +20,4 @@ data:
   NETAPPDIR: "http://uma-netapp:10001"
   PATH_TO_CERTS: "/usr/src/app/certs"
   ENVIRONMENT_MODE: "development"
-  CAM_SERVER: "http://10.11.32.202:5001"
+  MULTIESPECTRALCAM_SERVER: "http://10.11.32.202:5001"
