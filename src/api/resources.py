@@ -252,7 +252,7 @@ def clear_data():
     return jsonify({"status":"success"})
 
 def get_path_cam():
-    return environ.get('CAM_SERVER')
+    return environ.get('MULTIESPECTRALCAM_SERVER')
 
 # Webcam Management API Class
 class WebcamManagement(Resource):
