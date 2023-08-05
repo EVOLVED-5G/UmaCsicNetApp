@@ -135,7 +135,7 @@ http://localhost:10001/api/database/utils/clear
 
 Clear the database of the netApp
 
-### Webcam Api
+### Multiespectralcam Api
 
 #### [POST]
 
