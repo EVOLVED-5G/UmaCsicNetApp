@@ -347,7 +347,7 @@ class MultiespectralcamNameProcessedImages(Resource):
 # Endpoints
 api.add_resource(CellManagement,'/cells','/cells/<string:num>')
 api.add_resource(HistoricManagement,'/historics/', '/historics/<int:historic_id>', '/historics/<string:external_id>')
-api.add_resource(MultiespectralcamManagement, '/images/<string:nameimage>')
+api.add_resource(MultiespectralcamManagement, '/images/<string:band>')
 api.add_resource(MultiespectralcamProcessedManagement, '/images/processed/<string:nameimage>')
 api.add_resource(MultiespectralcamNormalManagement, '/images/normal/<string:nameimage>')
 api.add_resource(MultiespectralcamNameNormalImages, '/images/normal')
