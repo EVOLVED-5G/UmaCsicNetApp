@@ -8,5 +8,5 @@ marshmallow-sqlalchemy
 python-dotenv
 psycopg2-binary
 requests
-evolved5g==1.0.8
+evolved5g==1.0.12
 waitress
