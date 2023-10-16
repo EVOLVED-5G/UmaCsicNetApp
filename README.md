@@ -1,3 +1,4 @@
+# Deploy Network Application in k8s
 # [Access NEF](https://github.com/EVOLVED-5G/NEF_emulator)
 
 Add the endpoints in the /etc/hosts file of the NEF and CAPIF
@@ -233,7 +234,7 @@ Create a POST type request using Postman
     "parameters": {
         "GIT_NETAPP_URL": "https://github.com/EVOLVED-5G/UmaCsicNetApp",
         "GIT_NETAPP_BRANCH": "evolved5g",
-        "VERSION_NETAPP": "1.0.8",
+        "VERSION_NETAPP": "1.0.13",
         "ENVIRONMENT": "..."
     }
 }

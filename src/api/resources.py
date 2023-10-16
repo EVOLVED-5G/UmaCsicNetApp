@@ -262,22 +262,29 @@ class MultiespectralcamManagement(Resource):
         multiespectralcam_api = get_path_cam()
         process = request.args.get('process')
         response = ''
-        switch_on_cam = get(multiespectralcam_api + '/api/smartplug/switchon')
-        if switch_on_cam.status_code == 200:
-            time.sleep(80)
-            if process is not None:
-                response = post(multiespectralcam_api + '/api/images/' + band + '?process=' + process)
-            else:
-                response = post(multiespectralcam_api + '/api/images/' + band)
-            content_json = response.json()
-            time.sleep(60)
-            switch_off_cam = get(multiespectralcam_api + '/api/smartplug/switchoff')
-            if switch_off_cam.status_code == 200:
-                return content_json
-            else:
-                return switch_off_cam.json()
+        # switch_on_cam = get(multiespectralcam_api + '/api/smartplug/switchon')
+        # if switch_on_cam.status_code == 200:
+        #     time.sleep(80)
+        #     if process is not None:
+        #         response = post(multiespectralcam_api + '/api/images/' + band + '?process=' + process)
+        #     else:
+        #         response = post(multiespectralcam_api + '/api/images/' + band)
+        #     content_json = response.json()
+        #     time.sleep(60)
+        #     switch_off_cam = get(multiespectralcam_api + '/api/smartplug/switchoff')
+        #     if switch_off_cam.status_code == 200:
+        #         return content_json
+        #     else:
+        #         return switch_off_cam.json()
+        # else:
+        #     return switch_on_cam.json()
+        time.sleep(60)
+        if process is not None:
+            response = post(multiespectralcam_api + '/api/images/' + band + '?process=' + process)
         else:
-            return switch_on_cam.json()
+            response = post(multiespectralcam_api + '/api/images/' + band)
+        content_json = response.json()
+        return content_json
 
 class MultiespectralcamNormalManagement(Resource):
     def get(self, nameimage):
