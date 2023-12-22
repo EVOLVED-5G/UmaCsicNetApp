@@ -184,12 +184,14 @@ class HistoricManagement(Resource):
                         HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
                         HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"],
                         FullBR=historic_data["FullBR"], AirTC=historic_data["AirTC"], RH=historic_data["RH"],
+                        Pressure_1=historic_data["Pressure_1"], Pressure_2=historic_data["Pressure_2"],
                         cell = cell, timestamp=datetime_data)
         else:
             historic = Historic(HS10_0=historic_data["HS10_0"],HS10_1=historic_data["HS10_1"], HS10_2=historic_data["HS10_2"],
                         HS30_0=historic_data["HS30_0"], HS30_1=historic_data["HS30_1"], HS30_2=historic_data["HS30_2"],
                         HS50_0=historic_data["HS50_0"], HS50_1=historic_data["HS50_1"], HS50_2=historic_data["HS50_2"],
                         FullBR=historic_data["FullBR"], AirTC=historic_data["AirTC"], RH=historic_data["RH"],
+                        Pressure_1=historic_data["Pressure_1"], Pressure_2=historic_data["Pressure_2"],
                         cell = cell) 
         db.session.add(historic)
         db.session.commit()
@@ -226,6 +228,10 @@ class HistoricManagement(Resource):
             elif key == "AirTC":
                 historic.AirTC = historic_data[key]
             elif key == "RH":
+                historic.RH = historic_data[key]
+            elif key == "Pressure_1":
+                historic.RH = historic_data[key]
+            elif key == "Pressure_2":
                 historic.RH = historic_data[key]
         db.session.commit()
 

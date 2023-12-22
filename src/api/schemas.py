@@ -28,3 +28,5 @@ class HistoricSchema(ma.Schema):
     FullBR = fields.Float()
     AirTC = fields.Float()
     RH = fields.Float()
+    Pressure_1 = fields.Float()
+    Pressure_2 = fields.Float()

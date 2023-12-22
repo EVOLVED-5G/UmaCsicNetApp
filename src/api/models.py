@@ -24,3 +24,5 @@ class Historic(db.Model):
     FullBR = db.Column(db.Float)
     AirTC = db.Column(db.Float)
     RH = db.Column(db.Float)
+    Pressure_1 = db.Column(db.Float)
+    Pressure_2 = db.Column(db.Float)
